@@ -1,0 +1,32 @@
+{
+  "customSyntax": "postcss-html",
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "no-descending-specificity": null,
+
+    "color-no-invalid-hex": true,
+    "property-no-unknown": true,
+    "unit-no-unknown": true,
+    "selector-pseudo-class-no-unknown": true,
+    "selector-pseudo-element-no-unknown": true,
+    "declaration-block-no-duplicate-properties": true,
+    "keyframe-block-no-duplicate-selectors": true,
+    "no-duplicate-selectors": true,
+
+    "color-hex-length": null,
+    "color-function-notation": null,
+    "color-function-alias-notation": null,
+    "alpha-value-notation": null,
+    "selector-id-pattern": null,
+    "selector-class-pattern": null,
+    "font-family-name-quotes": null,
+    "value-keyword-case": null,
+    "property-no-vendor-prefix": null,
+    "declaration-empty-line-before": null,
+    "comment-empty-line-before": null,
+    "rule-empty-line-before": null,
+    "at-rule-empty-line-before": null,
+    "custom-property-empty-line-before": null,
+    "number-max-precision": null
+  }
+}
