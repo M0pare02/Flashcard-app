@@ -4,11 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Running the app
 
-No build step. Open `Index.html` directly in a browser, or use VS Code's Live Server extension for auto-reload on save. The Claude app's built-in preview is unreliable for this project (localStorage is blocked in the sandbox).
+No build step. Open `index.html` directly in a browser, or use VS Code's Live Server extension for auto-reload on save. The Claude app's built-in preview is unreliable for this project (localStorage is blocked in the sandbox).
+
+## Project structure
+
+```
+FlashcardApp/
+├── index.html        ← HTML skeleton only (~65 lines)
+├── css/
+│   └── styles.css    ← all styles (~560 lines)
+└── js/
+    └── app.js        ← all JavaScript (~320 lines)
+```
+
+No build step, no bundler, no framework — plain HTML, CSS, and vanilla JS.
 
 ## Architecture
-
-Everything lives in a single file: `Index.html`. It contains inline CSS, HTML, and a `<script>` block — no external dependencies, no bundler, no framework.
 
 **Data model** — persisted to `localStorage` under the key `flashcardAppData`:
 ```json
@@ -18,11 +29,10 @@ Everything lives in a single file: `Index.html`. It contains inline CSS, HTML, a
 }
 ```
 
-**Three modes** (tab-switched, each a `<section>`):
-- `#add` — create/edit/delete cards for the active subject
+**Two tabs** (tab-switched, each a `<section>`):
+- `#add` — create/edit/delete cards for the active subject; includes card search
 - `#study` — flip cards with 3D CSS transform; supports sequential nav and auto-shuffle
-- `#test` — type-in answers graded via exact match or Levenshtein distance (≤30% of answer length = "almost")
 
 **On first load**, a "Naturalization test" subject with 100 civics questions is automatically seeded into localStorage if it doesn't already exist.
 
-**Themes**: light (default), dark (`body.dark`), and a decorative `body.naturalization-theme` applied when the Naturalization subject is active.
+**Themes**: light (default) and dark (`body.dark`), toggled via the ⋮ overflow menu in the nav bar and persisted to `localStorage`.
