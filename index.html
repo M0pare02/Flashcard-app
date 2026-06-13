@@ -29,8 +29,8 @@ body {
 nav {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 15px;
+    gap: 12px;
+    padding: 12px 15px;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow-1);
@@ -49,6 +49,91 @@ nav button,
     font-size: 15px;
     transition: 0.2s;
     color: #92764f;
+}
+
+.nav-menu-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+#navMenuBtn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: var(--surface-2);
+    color: var(--text);
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.2s;
+}
+
+#navMenuBtn:hover {
+    background: var(--border);
+}
+
+#navMenuPanel {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    min-width: 190px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    padding: 6px;
+    z-index: 100;
+}
+
+#navMenuPanel.open {
+    display: block;
+}
+
+#navMenuPanel button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.15s, transform 0.1s;
+}
+
+#navMenuPanel button:hover {
+    filter: brightness(0.93);
+    transform: translateY(-1px);
+}
+
+#newSubject {
+    background: rgba(232, 108, 58, 0.12);
+    color: #c05621;
+    box-shadow: inset 0 0 0 1px rgba(232,108,58,0.25);
+}
+
+#deleteSubject {
+    background: rgba(217, 45, 32, 0.1);
+    color: #a3281e;
+    box-shadow: inset 0 0 0 1px rgba(217,45,32,0.25);
+}
+
+#themeToggle {
+    background: var(--surface-2);
+    color: var(--text);
+    box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.nav-menu-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 6px;
 }
 
 .page-tabs {
@@ -90,46 +175,6 @@ nav button,
     box-shadow: 0 8px 20px rgba(232, 108, 58, 0.25);
 }
 
-#themeToggle {
-    margin-left: auto;
-    min-width: 112px;
-    padding: 8px 14px 8px 42px;
-    border-radius: 999px;
-    border: 1px solid #fcd9a0;
-    background: linear-gradient(135deg, #FEF3E2, #fde4bb);
-    color: #c05621;
-    font-weight: 700;
-    position: relative;
-}
-
-#themeToggle::before {
-    content: "☀️";
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.7);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-}
-
-body.dark #themeToggle {
-    padding: 8px 42px 8px 14px;
-    background: linear-gradient(135deg, #1f2937, #111827);
-    border-color: #374151;
-    color: #dbeafe;
-}
-
-body.dark #themeToggle::before {
-    content: "🌙";
-    left: calc(100% - 32px);
-    background: rgba(30,41,59,0.9);
-}
-
 section {
     display: none;
     padding: 18px 25px 25px;
@@ -165,22 +210,9 @@ button.primary {
     box-shadow: 0 4px 14px rgba(232,108,58,0.25);
 }
 
-.subject-controls {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-nav .subject-controls {
-    flex: 0 1 auto;
-    width: fit-content;
-    margin-bottom: 0;
-}
-
 #subjectSelect {
-    width: auto;
+    flex: 1;
+    min-width: 0;
     margin: 0;
     appearance: none;
     -webkit-appearance: none;
@@ -189,8 +221,6 @@ nav .subject-controls {
     border: 1px solid color-mix(in srgb, var(--border) 82%, #e86c3a 18%);
     border-radius: 12px;
     min-height: 50px;
-    min-width: 190px;
-    max-width: 520px;
     font-size: 15px;
     font-family: inherit;
     background:
@@ -219,24 +249,6 @@ nav .subject-controls {
     box-shadow: 0 0 0 3px rgba(232,108,58,0.16);
 }
 
-#newSubject,
-#deleteSubject {
-    padding: 12px 14px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-#newSubject {
-    background: #e86c3a;
-    color: #fff;
-}
-
-#deleteSubject {
-    background: #d92d20;
-    color: #fff;
-}
 
 .card-actions {
     display: flex;
@@ -604,15 +616,20 @@ body.dark button.primary:hover {
     filter: brightness(1.12);
 }
 
+body.dark #navMenuPanel {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
 body.dark #newSubject {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    border-color: #6366f1;
-    box-shadow: 0 4px 14px rgba(99,102,241,0.3);
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+    box-shadow: inset 0 0 0 1px rgba(99,102,241,0.3);
 }
 
 body.dark #deleteSubject {
-    background: #be123c;
-    box-shadow: 0 4px 14px rgba(190,18,60,0.3);
+    background: rgba(217, 45, 32, 0.15);
+    color: #f87171;
+    box-shadow: inset 0 0 0 1px rgba(217,45,32,0.3);
 }
 
 
@@ -700,177 +717,63 @@ body.dark #cardSearch:focus {
     box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
 }
 
-/* ---------- NATURALIZATION FLAG THEME ---------- */
-body.naturalization-theme {
-    --eagle-img: url("https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Bald_Eagle_Flying.jpg/640px-Bald_Eagle_Flying.jpg");
-    background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
-}
+/* ---------- RESPONSIVE (≤ 600px) ---------- */
+@media (max-width: 600px) {
 
-body.naturalization-theme::before {
-    content: "";
-    position: fixed;
-    top: 10px;
-    right: 20px;
-    width: 84px;
-    height: 84px;
-    background-image: var(--eagle-img);
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%;
-    opacity: 0.22;
-    pointer-events: none;
-    z-index: 0;
-}
+    .page-tabs {
+        padding: 14px 12px 6px;
+    }
 
-body.naturalization-theme::after {
-    content: "";
-    position: fixed;
-    bottom: 10px;
-    left: 20px;
-    width: 84px;
-    height: 84px;
-    background-image: var(--eagle-img);
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%;
-    opacity: 0.22;
-    pointer-events: none;
-    z-index: 0;
-    transform: scaleX(-1);
-}
+    section {
+        padding: 14px 12px 20px;
+    }
 
-body.naturalization-theme nav {
-    background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 50%, #1e3a8a 100%);
-    border-bottom: 4px solid #dc2626;
-}
+    .page-tabs .tab {
+        min-width: 0;
+        flex: 1;
+        font-size: 16px;
+        padding: 10px 8px;
+    }
 
-body.naturalization-theme nav button {
-    background: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
+    nav {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px;
+    }
 
-body.naturalization-theme nav button.active {
-    background: #dc2626;
-    color: #ffffff;
-    border: 2px solid #ffffff;
-}
+    #subjectSelect {
+        min-width: 0;
+        max-width: 100%;
+    }
 
-body.naturalization-theme .subject-info {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-    border: 3px solid #dc2626;
-    position: relative;
-}
+    .flashcard {
+        height: auto;
+        min-height: 180px;
+    }
 
-body.naturalization-theme .subject-info::before {
-    content: "";
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 36px;
-    height: 36px;
-    background-image: var(--eagle-img);
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%;
-    opacity: 0.35;
-}
+    .flashcard .front,
+    .flashcard .back {
+        font-size: 18px;
+        padding: 16px;
+    }
 
-body.naturalization-theme .subject-label,
-body.naturalization-theme .subject-name,
-body.naturalization-theme .subject-count-label {
-    color: #ffffff;
 }
-
-body.naturalization-theme .subject-count-wrap {
-    background: #dc2626;
-    border: 2px solid #ffffff;
-}
-
-body.naturalization-theme .subject-count-wrap .current-subject-count,
-body.naturalization-theme .subject-count-wrap .subject-count-label {
-    color: #ffffff;
-}
-
-body.naturalization-theme .flashcard {
-    background: #ffffff;
-    border: 4px solid #1e3a8a;
-    box-shadow: 0 8px 24px rgba(30, 58, 138, 0.3),
-                inset 0 0 0 8px #dc2626,
-                inset 0 0 0 12px #ffffff;
-}
-
-body.naturalization-theme .flashcard::after {
-    content: "";
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 46px;
-    height: 46px;
-    background-image: var(--eagle-img);
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%;
-    opacity: 0.25;
-}
-
-body.naturalization-theme input,
-body.naturalization-theme textarea {
-    border: 2px solid #1e3a8a;
-    background: #ffffff;
-}
-
-body.naturalization-theme input:focus,
-body.naturalization-theme textarea:focus {
-    border-color: #dc2626;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
-}
-
-body.naturalization-theme button.primary {
-    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-    border: 2px solid #ffffff;
-    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.4);
-}
-
-body.naturalization-theme button.primary:hover {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-}
-
-body.naturalization-theme #clearAll,
-body.naturalization-theme #deleteSubject {
-    background: #dc2626;
-    border: 2px solid #ffffff;
-}
-
-body.naturalization-theme #newSubject,
-body.naturalization-theme #addCardToggle {
-    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-    border: 2px solid #ffffff;
-}
-
-body.naturalization-theme .card-item {
-    background: #ffffff;
-    border: 2px solid #2563eb;
-    border-left: 6px solid #dc2626;
-}
-
-body.naturalization-theme .card-item:hover {
-    box-shadow: 0 4px 16px rgba(30, 58, 138, 0.3);
-}
-
 
 </style>
 </head>
 <body>
 
 <nav>
-    <div class="subject-controls">
-        <select id="subjectSelect"></select>
-        <button id="newSubject">+ Subject</button>
-        <button id="deleteSubject">Delete Subject</button>
+    <select id="subjectSelect"></select>
+    <div class="nav-menu-wrap">
+        <button id="navMenuBtn" aria-label="Menu">&#8942;</button>
+        <div id="navMenuPanel">
+            <button id="newSubject">Add Subject</button>
+            <button id="deleteSubject">Delete Subject</button>
+            <div class="nav-menu-divider"></div>
+            <button id="themeToggle">Dark Mode 🌙</button>
+        </div>
     </div>
-    <button id="themeToggle">Light Mode</button>
 </nav>
 
 <div class="page-tabs">
@@ -1079,8 +982,6 @@ function updateSubjectInfo() {
     const subject = getCurrentSubject();
     const subjectName = subject?.name || "-";
     const cardCount = cards.length;
-    document.body.classList.remove("naturalization-theme");
-
     document.querySelectorAll(".current-subject-name").forEach(el => {
         el.textContent = subjectName;
     });
@@ -1101,17 +1002,31 @@ function saveCards() {
 function applyTheme(theme) {
     const isDark = theme === "dark";
     document.body.classList.toggle("dark", isDark);
-    document.getElementById("themeToggle").textContent = isDark ? "Dark Mode" : "Light Mode";
+    document.getElementById("themeToggle").textContent = isDark ? "Light Mode ☀️" : "Dark Mode 🌙";
 }
 
 const savedTheme = localStorage.getItem("theme") || "dark";
 applyTheme(savedTheme);
 
 document.getElementById("themeToggle").onclick = () => {
+    navMenuPanel.classList.remove("open");
     const nextTheme = document.body.classList.contains("dark") ? "light" : "dark";
     localStorage.setItem("theme", nextTheme);
     applyTheme(nextTheme);
 };
+
+/* ---------- NAV OVERFLOW MENU ---------- */
+const navMenuBtn   = document.getElementById("navMenuBtn");
+const navMenuPanel = document.getElementById("navMenuPanel");
+
+navMenuBtn.onclick = (e) => {
+    e.stopPropagation();
+    navMenuPanel.classList.toggle("open");
+};
+
+document.addEventListener("click", () => {
+    navMenuPanel.classList.remove("open");
+});
 
 /* ---------- NAVIGATION ---------- */
 document.querySelectorAll(".tab").forEach(btn => {
@@ -1176,6 +1091,7 @@ document.getElementById("subjectSelect").onchange = (e) => {
 };
 
 document.getElementById("newSubject").onclick = () => {
+    navMenuPanel.classList.remove("open");
     const name = prompt("Enter a name for the new subject:");
     if (!name) return;
 
@@ -1200,6 +1116,7 @@ document.getElementById("newSubject").onclick = () => {
 };
 
 document.getElementById("deleteSubject").onclick = () => {
+    navMenuPanel.classList.remove("open");
     if (appData.subjects.length <= 1) {
         alert("You must keep at least one subject.");
         return;
